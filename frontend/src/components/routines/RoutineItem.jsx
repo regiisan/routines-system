@@ -76,7 +76,7 @@ const RoutineItem = ({ routine,  isEditing: initialIsEditing, isSelected, onSave
                     }}
                     title="Editar"
                 >
-                    <i className="bi bi-pencil-fill bi-xs"></i>
+                    <i className="bi bi-pen"></i>
                 </button>
                 <button
                     className="btn-icon btn-delete"
@@ -86,7 +86,7 @@ const RoutineItem = ({ routine,  isEditing: initialIsEditing, isSelected, onSave
                     }}
                     title="Eliminar"
                 >
-                    <i className="bi bi-trash3-fill"></i>
+                    <i className="bi bi-trash3"></i>
                 </button>
             </div>
         </div>

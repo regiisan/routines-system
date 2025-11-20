@@ -66,10 +66,10 @@ const ExerciseItem = ({ exercise, onSave, onCancel, onDelete, isEditing: initial
 
                 <div className="exercise-actions">
                     <button className="btn-icon btn-save" type="submit" title="Guardar">
-                        <i className="bi bi-check-lg"></i> Guardar
+                        <i className="bi bi-check-lg"></i>
                     </button>
                     <button className="btn-icon btn-cancel" onClick={handleCancel} title="Cancelar">
-                        <i className="bi bi-x-lg"></i> Cancelar
+                        <i className="bi bi-x-lg"></i>
                     </button>
                 </div>
             </form>
@@ -91,14 +91,14 @@ const ExerciseItem = ({ exercise, onSave, onCancel, onDelete, isEditing: initial
                     onClick={() => setIsEditing(true)}
                     title="Editar"
                 >
-                    <i className="bi bi-pencil-fill bi-xs"></i>
+                    <i className="bi bi-pen"></i>
                 </button>
                 <button
                     className="btn-icon btn-delete"
                     onClick={onDelete}
                     title="Eliminar"
                 >
-                    <i className="bi bi-trash3-fill"></i>
+                    <i className="bi bi-trash3"></i>
                 </button>
             </div>
         </div>

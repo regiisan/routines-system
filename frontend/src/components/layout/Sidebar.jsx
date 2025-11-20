@@ -4,9 +4,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Sidebar = () => {
     return (
-        <div className="d-flex flex-column bg-dark text-white vh-100 p-3 shadow" style={{width: "260px"}}>
+        <div className="d-flex flex-column bg-dark text-white vh-100 p-3 shadow sidebar" style={{width: "260px"}}>
             <div className="d-flex align-items-center mb-4">
-                <i className="fa-solid fa-dumbbell fs-3 me-2 text-primary"></i>
+                <i className="fa-solid fa-dumbbell fs-3 me-2 logo"></i>
                 <h4 className="m-0 fw-bold">RoutineSystem</h4>
             </div>
 
