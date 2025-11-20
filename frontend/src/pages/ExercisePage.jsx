@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 const ExercisePage = () => {
 
     const [exercises, setExercises] = useState([]);
-    const [isCreating, setIsCreating] = useState(false); // ⭐ NUEVO ESTADO ⭐
+    const [isCreating, setIsCreating] = useState(false);
     const [availableMuscles, setAvailableMuscles] = useState([]);
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const ExercisePage = () => {
     const handleDelete = (id) => {
         ExerciseService.deleteExercise(id)
             .then(() => listExercises())
-            .catch(err => {
+            .catch(() => {
                 Swal.fire({
                     icon: "error",
                     title: "No se pudo eliminar",
