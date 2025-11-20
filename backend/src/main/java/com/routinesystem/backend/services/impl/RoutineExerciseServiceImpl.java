@@ -31,7 +31,7 @@ public class RoutineExerciseServiceImpl implements RoutineExerciseService {
                 .orElseThrow(() -> new IllegalArgumentException("Routine not found"));
 
         Exercise exercise = exerciseRepository.findById(routineExerciseDto.getExerciseId())
-                .orElseThrow(() -> new RuntimeException("Ejercicio no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Exercise not found"));
 
         RoutineExercise routineExercise = new RoutineExercise();
         routineExercise.setRoutine(routine);
@@ -80,19 +80,6 @@ public class RoutineExerciseServiceImpl implements RoutineExerciseService {
     }
 
     @Transactional
-    @Override
-    public RoutineExerciseDto addExercise(Long exerciseId, RoutineExerciseDto routineExerciseDto) {
-        RoutineExercise routineExercise = routineExerciseRepository.findById(routineExerciseDto.getRoutineId())
-                .orElseThrow(() -> new IllegalArgumentException("RoutineExercise not found with id: " + routineExerciseDto.getRoutineId()));
-
-        Exercise exercise = exerciseRepository.findById(exerciseId)
-                .orElseThrow(() -> new IllegalArgumentException("RoutineExercise not found with id: " + exerciseId));
-
-        routineExercise.setExercise(exercise);
-        RoutineExercise updatedRoutineExercise = routineExerciseRepository.save(routineExercise);
-        return RoutineExerciseMapper.mapToRoutineExerciseDto(updatedRoutineExercise);
-    }
-
     @Override
     public void deleteRoutineExercise(Long routineExerciseId) {
         RoutineExercise routineExercise = routineExerciseRepository.findById(routineExerciseId)

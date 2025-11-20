@@ -8,6 +8,5 @@ public interface RoutineExerciseService {
     RoutineExerciseDto getRoutineExerciseById(Long routineExerciseId);
     List<RoutineExerciseDto> getAllRoutineExercisesByRoutine(Long routineId);
     RoutineExerciseDto updateRoutineExercise(Long routineExerciseId, RoutineExerciseDto routineExerciseDto);
-    RoutineExerciseDto addExercise(Long id,RoutineExerciseDto routineExerciseDto);
     void deleteRoutineExercise(Long routineExerciseId);
 }

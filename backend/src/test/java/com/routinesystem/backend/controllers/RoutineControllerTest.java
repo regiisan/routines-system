@@ -85,7 +85,7 @@ public class RoutineControllerTest {
         given(routineService.getAllRoutines()).willReturn(routineList);
 
         mockMvc.perform(get(BASE_URL))
-                .andExpect(status().isOk()) // 200 OK
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()", is(routineList.size())))
                 .andExpect(jsonPath("$[0].name", is(routineDto.getName())))
                 .andExpect(jsonPath("$[1].name", is(routine2.getName())));
@@ -101,7 +101,7 @@ public class RoutineControllerTest {
         mockMvc.perform(put(BASE_URL + "/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedDto)))
-                .andExpect(status().isOk()) // 200 OK
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", is(updatedDto.getName())));
 
         verify(routineService, times(1)).updateRoutine(eq(id), any(RoutineDto.class));
@@ -111,7 +111,7 @@ public class RoutineControllerTest {
     void updateRoutineNotFoundShouldReturnStatus404() throws Exception {
         Long id = 99L;
         given(routineService.updateRoutine(eq(id), any(RoutineDto.class)))
-                .willThrow(new ResourceNotFoundException("Routine not found for update"));
+                .willThrow(new ResourceNotFoundException("Routine not found"));
 
         mockMvc.perform(put(BASE_URL + "/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -122,13 +122,12 @@ public class RoutineControllerTest {
     }
 
     @Test
-    void deleteRoutine_ShouldReturnSuccessMessageAndStatus200() throws Exception {
+    void deleteRoutineShouldReturnSuccessMessageAndStatus200() throws Exception {
         Long id = 1L;
         doNothing().when(routineService).deleteRoutine(id);
 
         mockMvc.perform(delete(BASE_URL + "/{id}", id))
-                .andExpect(status().isOk()) // 200 OK
-                .andExpect(content().string("Routine deleted."));
+                .andExpect(status().isNoContent());
 
         verify(routineService, times(1)).deleteRoutine(id);
     }

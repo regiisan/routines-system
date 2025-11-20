@@ -49,6 +49,7 @@ const RoutinesPage = () => {
                 setRoutines(prev => [...prev, res.data]);
                 setSelectedRoutine(res.data);
                 setIsCreatingRoutine(false);
+                listRoutineExercises(res.data.id);
             })
             .catch(console.error);
     };

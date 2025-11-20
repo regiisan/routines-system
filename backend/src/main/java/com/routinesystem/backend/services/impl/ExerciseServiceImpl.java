@@ -58,6 +58,7 @@ public class ExerciseServiceImpl implements ExerciseService {
         return ExerciseMapper.mapToExerciseDto(savedExercise);
     }
 
+    @Transactional
     @Override
     public void deleteExercise(Long exerciseId) {
         Exercise exercise = exerciseRepository.findById(exerciseId)
