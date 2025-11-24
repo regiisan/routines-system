@@ -28,17 +28,12 @@ public class RoutineExerciseServiceImpl implements RoutineExerciseService {
     @Override
     public RoutineExerciseDto createRoutineExercise(RoutineExerciseDto routineExerciseDto) {
         Routine routine = routineRepository.findById(routineExerciseDto.getRoutineId())
-                .orElseThrow(() -> new IllegalArgumentException("Routine not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Routine not found"));
 
         Exercise exercise = exerciseRepository.findById(routineExerciseDto.getExerciseId())
-                .orElseThrow(() -> new RuntimeException("Exercise not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise not found"));
 
-        RoutineExercise routineExercise = new RoutineExercise();
-        routineExercise.setRoutine(routine);
-        routineExercise.setExercise(exercise);
-        routineExercise.setSets(routineExerciseDto.getSets());
-        routineExercise.setReps(routineExerciseDto.getReps());
-        routineExercise.setWeight(routineExerciseDto.getWeight());
+        RoutineExercise routineExercise = RoutineExerciseMapper.mapToRoutineExercise(routineExerciseDto, routine, exercise);
         RoutineExercise savedRoutineExercise = routineExerciseRepository.save(routineExercise);
         return RoutineExerciseMapper.mapToRoutineExerciseDto(savedRoutineExercise);
     }
@@ -64,11 +59,11 @@ public class RoutineExerciseServiceImpl implements RoutineExerciseService {
     @Override
     public RoutineExerciseDto updateRoutineExercise(Long routineExerciseId, RoutineExerciseDto routineExerciseDto) {
         RoutineExercise routineExercise = routineExerciseRepository.findById(routineExerciseId)
-                .orElseThrow(() -> new IllegalArgumentException("RoutineExercise not found with id: " + routineExerciseId));
+                .orElseThrow(() -> new ResourceNotFoundException("RoutineExercise not found with id: " + routineExerciseId));
 
         if (routineExerciseDto.getExerciseId() != null) {
             Exercise exercise = exerciseRepository.findById(routineExerciseDto.getExerciseId())
-                    .orElseThrow(() -> new IllegalArgumentException("Exercise not found with id: " + routineExerciseDto.getExerciseId()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id: " + routineExerciseDto.getExerciseId()));
             routineExercise.setExercise(exercise);
         }
 

@@ -2,12 +2,14 @@ package com.routinesystem.backend.services.impl;
 
 import com.routinesystem.backend.dtos.ExerciseDto;
 import com.routinesystem.backend.entities.Exercise;
+import com.routinesystem.backend.exceptions.DuplicateExerciseNameException;
 import com.routinesystem.backend.exceptions.OperationNotAllowedException;
 import com.routinesystem.backend.exceptions.ResourceNotFoundException;
 import com.routinesystem.backend.mappers.ExerciseMapper;
 import com.routinesystem.backend.repositories.ExerciseRepository;
 import com.routinesystem.backend.services.ExerciseService;
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,21 +26,25 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Transactional
     @Override
     public ExerciseDto createExercise(ExerciseDto exerciseDto) {
-        Exercise exercise = ExerciseMapper.mapToExercise(exerciseDto);
-        Exercise savedExercise = exerciseRepository.save(exercise);
-        return ExerciseMapper.mapToExerciseDto(savedExercise);
+        try {
+            Exercise exercise = ExerciseMapper.mapToExercise(exerciseDto);
+            Exercise savedExercise = exerciseRepository.save(exercise);
+            return ExerciseMapper.mapToExerciseDto(savedExercise);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateExerciseNameException("An exercise with that name already exists.");
+        }
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public ExerciseDto getExerciseById(Long exerciseId) {
         Exercise exercise = exerciseRepository.findById(exerciseId)
-                .orElseThrow(()-> new ResourceNotFoundException("Exercise not found with id:" + exerciseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id:" + exerciseId));
 
         return ExerciseMapper.mapToExerciseDto(exercise);
     }
 
-    @Transactional(readOnly=true)
+    @Transactional(readOnly = true)
     @Override
     public List<ExerciseDto> getAllExercises() {
         List<Exercise> exercises = exerciseRepository.findAll();
@@ -52,10 +58,14 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise exercise = exerciseRepository.findById(exerciseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Exercise not found with id:" + exerciseId));
 
-        exercise.setName(exerciseDto.getName());
-        exercise.setMuscle(exerciseDto.getMuscle());
-        Exercise savedExercise = exerciseRepository.save(exercise);
-        return ExerciseMapper.mapToExerciseDto(savedExercise);
+        try {
+            exercise.setName(exerciseDto.getName());
+            exercise.setMuscle(exerciseDto.getMuscle());
+            Exercise savedExercise = exerciseRepository.save(exercise);
+            return ExerciseMapper.mapToExerciseDto(savedExercise);
+        } catch (DataIntegrityViolationException e) {
+            throw new DuplicateExerciseNameException("An exercise with that name already exists.");
+        }
     }
 
     @Transactional

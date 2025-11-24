@@ -129,14 +129,36 @@ body{
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.routine-item.editing {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  border: 1px solid #00C270;
+  background: #151716;
+}
+
+.routine-item.editing .routine-input {
+  flex: 1;
+  min-width: 0;
+  max-width: 400px;
+}
+
+.routine-item.editing .routine-actions {
+  display: flex;
+  gap: 8px;
+  white-space: nowrap;
+}
+
 .exercise-select,
 .exercise-input {
-  border: 1px solid #575757;
+  border: 1px solid #2a2d2c;
   border-radius: 6px;
   padding: 9px 12px;
   font-size: 14px;
   outline: none;
-  background: #151716;
+  background: #1d201f;
   color: #cfcfcf;
 }
 
@@ -313,4 +335,101 @@ body{
   font-size: 14px;
   color: #6b7280;
   transition: all 0.2s ease;
+}
+
+@media (max-width: 1775px) {
+  .form-row {
+    gap: 6px;
+  }
+
+  .exercise-input,
+  .exercise-select {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 1633px) {
+  .exercise-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-group {
+    width: 80%;
+    max-width: 500px;
+  }
+
+  .routine-item.editing {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .routine-item.editing .routine-input {
+    width: 90%;
+    max-width: 500px;
+  }
+
+  .exercise-actions{
+    justify-content: center;
+  }
+
+  .routine-item.editing .routine-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 6px;
+  }
+
+}
+
+@media (max-width: 1200px) and (min-width: 990px) {
+  .routine-item {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .routine-actions {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .routine-name {
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 990px) {
+  .exercise-list-container,
+  .routine-list-container {
+    max-width: 100%;
+    margin-bottom: 25px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .exercise-input,
+  .exercise-select {
+    width: 100%;
+  }
+
+  .exercise-actions {
+    justify-content: center;
+  }
+
+  .btn-save,
+  .btn-cancel {
+    width: 100%;
+    max-width: 250px;
+  }
 }

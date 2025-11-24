@@ -7,42 +7,36 @@ import com.routinesystem.backend.exceptions.ResourceNotFoundException;
 import com.routinesystem.backend.services.RoutineExerciseService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(RoutineExerciseController.class)
 class RoutineExerciseControllerTest {
 
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockitoBean
     private RoutineExerciseService routineExerciseService;
 
-    @InjectMocks
-    private RoutineExerciseController routineExerciseController;
-
+    @Autowired
     private ObjectMapper objectMapper;
 
     private RoutineExerciseDto routineExerciseDto;
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(routineExerciseController).build();
-        objectMapper = new ObjectMapper();
         routineExerciseDto = new RoutineExerciseDto(1L, 10L, "Rutina Fuerza", 20L, "Sentadilla", Muscle.CUADRICEPS, 3, 12, 40.0);
     }
+
 
     @Test
     void createRoutineExerciseSuccess() throws Exception {

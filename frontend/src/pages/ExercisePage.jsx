@@ -1,7 +1,7 @@
 // src/pages/ExercisePage.js
 import React, { useEffect, useState } from 'react';
 import ExerciseService from "../services/ExerciseService";
-import ExercisesList from "../components/exercises/ExercisesList";
+import ExerciseList from "../components/exercises/ExerciseList";
 import Swal from "sweetalert2";
 
 const ExercisePage = () => {
@@ -28,19 +28,33 @@ const ExercisePage = () => {
     };
 
     const handleCreate = (data) => {
-        ExerciseService.createExercise(data)
+        return ExerciseService.createExercise(data)
             .then(() => listExercises())
-            .catch(console.error);
-    }
+            .catch( (error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "Nombre duplicado",
+                    text: "Ya existe un ejercicio con ese nombre."
+                });
+                throw error;
+            });
+    };
 
     const handleUpdate = (id, data) => {
-        ExerciseService.updateExercise(id, data)
+        return ExerciseService.updateExercise(id, data)
             .then(() => listExercises())
-            .catch(console.error);
+            .catch((error) => {
+                Swal.fire({
+                    icon: "error",
+                    title: "No se pudo actualizar",
+                    text: "Ya existe un ejercicio con ese nombre.\n",
+                });
+                throw error;
+            });
     }
 
     const handleDelete = (id) => {
-        ExerciseService.deleteExercise(id)
+        return ExerciseService.deleteExercise(id)
             .then(() => listExercises())
             .catch(() => {
                 Swal.fire({
@@ -54,7 +68,7 @@ const ExercisePage = () => {
     return (
         <div className="d-flex">
             <div className="container p-4">
-                <ExercisesList
+                <ExerciseList
                     exercises={exercises}
                     isCreating={isCreating}
                     onCreateExercise={handleCreate}

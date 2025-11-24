@@ -1,9 +1,9 @@
-// src/components/exercises/ExercisesList.js
+// src/components/exercises/ExerciseList.js
 
 import React from 'react';
 import ExerciseItem from './ExerciseItem';
 
-const ExercisesList = ({ exercises, isCreating, onCreateExercise, onUpdateExercise, onDeleteExercise, onStartCreating, onCancelCreating, availableMuscles}) => {
+const ExerciseList = ({ exercises, isCreating, onCreateExercise, onUpdateExercise, onDeleteExercise, onStartCreating, onCancelCreating, availableMuscles}) => {
 
     return (
         <div className="exercise-list-container" style={{ maxWidth: "900px", margin: "0 auto" }}>
@@ -19,7 +19,7 @@ const ExercisesList = ({ exercises, isCreating, onCreateExercise, onUpdateExerci
                     <ExerciseItem
                         exercise={null}
                         isEditing={true}
-                        onSave={(data) => { onCreateExercise(data); onCancelCreating(); }}
+                        onSave={(data) => onCreateExercise(data)}
                         onCancel={onCancelCreating}
                         onDelete={() => {}}
                         availableMuscles={availableMuscles}
@@ -42,4 +42,4 @@ const ExercisesList = ({ exercises, isCreating, onCreateExercise, onUpdateExerci
     );
 };
 
-export default ExercisesList;
+export default ExerciseList;

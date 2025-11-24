@@ -7,14 +7,14 @@ const ExerciseItem = ({ exercise, onSave, onCancel, onDelete, isEditing: initial
     const [name, setName] = useState(exercise?.name || '');
     const [muscle, setMuscle] = useState(exercise?.muscle || '');
 
-
     const handleSave = () => {
         if (name.trim() && muscle.trim()) {
             onSave({
                 name: name.trim(),
                 muscle: muscle.trim()
-            });
-            setIsEditing(false);
+            })
+                .then(()=>{setIsEditing(false);onCancel();})
+                .catch(()=> {handleCancel();})
         } else {
             Swal.fire({
                 icon: "warning",
